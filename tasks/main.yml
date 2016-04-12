@@ -1,0 +1,96 @@
+---
+# tasks file for monsieurbiz.mariadb
+
+- name: Add MariaDB apt key
+  become: yes
+  become_user: root
+  apt_key: url={{ monsieurbiz_mariadb_apt_key }}
+  tags: monsieurbiz_mariadb_tags
+
+- name: Add MariaDB repository
+  become: yes
+  become_user: root
+  apt_repository: repo={{ monsieurbiz_mariadb_repository }}
+  tags: monsieurbiz_mariadb_tags
+
+- name: Install MariaDB
+  become: yes
+  become_user: root
+  apt: name={{ item }} state=latest
+  with_items:
+    - mariadb-server
+    - mariadb-client
+    - python-mysqldb
+  tags: monsieurbiz_mariadb_tags
+
+- name: Ensure service is started
+  become: yes
+  become_user: root
+  service: name=mysql state=started enabled=yes
+  tags: monsieurbiz_mariadb_tags
+
+- name: Update configuration
+  become: yes
+  become_user: root
+  template: src=mysql.conf.j2 dest=/etc/mysql/my.cnf
+  notify: restart mysql
+  tags: monsieurbiz_mariadb_tags
+
+- name: Update root password
+  become: yes
+  become_user: root
+  no_log: yes
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: "{{ monsieurbiz_mariadb_root_password }}"
+    state: present
+  with_items:
+    - 127.0.0.1
+    - ::1
+    - localhost
+  tags: monsieurbiz_mariadb_tags
+
+- name: Create the .my.cnf for root
+  become: yes
+  become_user: root
+  template: src=root_my.cnf.j2 dest=/root/.my.cnf
+  when: monsieurbiz_mariadb_use_root_conf
+  tags: monsieurbiz_mariadb_tags
+
+- name: Update root password for the current fqdn
+  become: yes
+  become_user: root
+  no_log: yes
+  mysql_user:
+    name: root
+    host: "{{ ansible_fqdn }}"
+    password: "{{ monsieurbiz_mariadb_root_password }}"
+    state: present
+  tags: monsieurbiz_mariadb_tags
+
+- name: Create databases
+  become: yes
+  become_user: root
+  mysql_db:
+    name: "{{ item.name }}"
+    collation: "{{ item.collation }}"
+    encoding: "{{ item.encoding }}"
+    state: "{{ item.state }}"
+  with_items: "{{ monsieurbiz_mariadb_databases }}"
+  tags: monsieurbiz_mariadb_tags
+
+- name: Create users
+  become: yes
+  become_user: root
+  no_log: yes
+  mysql_user:
+    name: "{{ item.0.name }}"
+    host: "{{ item.1 }}"
+    password: "{{ item.0.password }}"
+    priv: "{{ item.0.privs | join('/') }}"
+    state: "{{ item.0.state }}"
+  with_subelements:
+    - '{{ monsieurbiz_mariadb_users }}'
+    - hosts
+  tags: monsieurbiz_mariadb_tags

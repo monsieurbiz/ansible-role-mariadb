@@ -1,0 +1,21 @@
+---
+# vars file for monsieurbiz.mariadb
+
+monsieurbiz_mariadb_root_password: "please-change-me___Lohf7hah3oteg6u"
+
+monsieurbiz_mariadb_databases:
+  - name: example_org
+    state: present
+    encoding: utf8
+    collation: utf8_general_ci
+
+monsieurbiz_mariadb_users:
+  - name: example
+    password: "1337<3"
+    state: present
+    privs:
+      - "example_org.*:ALL"
+    hosts:
+      - 127.0.0.1
+      - ::1
+      - localhost

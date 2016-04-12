@@ -1,0 +1,7 @@
+---
+# handlers file for monsieurbiz.mariadb
+
+- name: restart mysql
+  become: yes
+  become_user: root
+  service: name=mysql state=restarted
