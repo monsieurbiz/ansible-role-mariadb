@@ -1,7 +1,7 @@
 ---
 # vars file for monsieurbiz.mariadb
 
-monsieurbiz_mariadb_root_password: "please-change-me___Lohf7hah3oteg6u"
+monsieurbiz_mariadb_root_password: "change-me"
 
 monsieurbiz_mariadb_databases: []
 # Example

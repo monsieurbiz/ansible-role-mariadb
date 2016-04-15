@@ -1,6 +1,10 @@
 ---
 # tasks file for monsieurbiz.mariadb
 
+- name: Test setup of root password
+  fail: msg="Please setup the mariadb root password (var monsieurbiz_mariadb_root_password)"
+  when: monsieurbiz_mariadb_root_password == "change-me"
+
 - name: Add MariaDB apt key
   become: yes
   become_user: root
