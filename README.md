@@ -8,7 +8,7 @@ Ansible role to manage databases using MariaDB
 
 ## Role Variables
 
-You can override all the variables in `defaults/main.yml` and `vars/main.yml`
+You can override all the variables in `defaults/main.yml`.
 
 ## Example Playbook
 

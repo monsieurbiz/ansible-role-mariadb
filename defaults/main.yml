@@ -7,12 +7,28 @@ monsieurbiz_mariadb_apt_key: "http://keyserver.ubuntu.com/pks/lookup?op=get&fing
 
 monsieurbiz_mariadb_repository: "deb [arch=amd64,i386] http://mirror6.layerjet.com/mariadb/repo/10.1/debian jessie main"
 
-monsieurbiz_mariadb_root_password: "please-change-me"
-
 monsieurbiz_mariadb_use_root_conf: yes
 
+monsieurbiz_mariadb_conf_bind_address: "0.0.0.0"
+
+monsieurbiz_mariadb_root_password: "change-me"
+
 monsieurbiz_mariadb_databases: []
+# Example
+#  - name: example_org
+#    state: present
+#    encoding: utf8
+#    collation: utf8_general_ci
 
 monsieurbiz_mariadb_users: []
+# Example
+#  - name: example
+#    password: "1337<3"
+#    state: present
+#    privs:
+#      - "example_org.*:ALL"
+#    hosts:
+#      - 127.0.0.1
+#      - ::1
+#      - localhost
 
-monsieurbiz_mariadb_conf_bind_address: "0.0.0.0"
