@@ -5,7 +5,10 @@ monsieurbiz_mariadb_tags: [monsieurbiz, mariadb, database, sql, db]
 
 monsieurbiz_mariadb_apt_key: "http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0xcbcb082a1bb943db"
 
+# Jessie
 monsieurbiz_mariadb_repository: "deb [arch=amd64,i386] http://mirror6.layerjet.com/mariadb/repo/10.1/debian jessie main"
+# Wheezy
+# monsieurbiz_mariadb_repository: "deb [arch=amd64,i386] http://ftp.igh.cnrs.fr/pub/mariadb/repo/10.1/debian wheezy main"
 
 monsieurbiz_mariadb_use_root_conf: yes
 
