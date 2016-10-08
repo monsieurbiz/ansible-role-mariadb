@@ -22,6 +22,7 @@
   become_user: root
   apt: name={{ item }} state=latest
   with_items:
+    - software-properties-common
     - mariadb-server
     - mariadb-client
     - python-mysqldb
