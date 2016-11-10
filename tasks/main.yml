@@ -26,6 +26,7 @@
     - mariadb-server
     - mariadb-client
     - python-mysqldb
+    - mytop
   tags: monsieurbiz_mariadb_tags
 
 - name: Ensure service is started
