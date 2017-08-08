@@ -25,9 +25,16 @@
     - software-properties-common
     - mariadb-server
     - mariadb-client
+    - python-pip
     - python-mysqldb
     - mytop
   tags: monsieurbiz_mariadb_tags
+
+- name: Install MySQL-python
+  pip: name={{ item }} state=latest
+  with_items:
+    - setuptools
+    - MySQL-python
 
 - name: Ensure service is started
   become: yes
