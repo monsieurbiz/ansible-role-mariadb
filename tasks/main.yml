@@ -23,8 +23,11 @@
   apt: name={{ item }} state=latest
   with_items:
     - software-properties-common
+    - libssl-dev
     - mariadb-server
     - mariadb-client
+    - libmariadbclient-dev
+    - python-dev
     - python-pip
     - python-mysqldb
     - mytop
